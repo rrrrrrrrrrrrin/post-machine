@@ -1,6 +1,5 @@
 #include <iostream>
-#include <unordered_map>
-#include <functional>  // for std::function
+#include <algorithm>  // for std::sort for std::vector
 #include "postmachine.h"
 
 uint64_t strToULL(std::string str) {
@@ -116,6 +115,40 @@ std::string PostMachine::calc(std::string const& init, int maxsteps)
 	std::vector<std::pair<uint64_t, std::string>> sorted_program;
 	sortProgram(sorted_program);
 
+	// check for errors in program: all command numbers could be called (exist in program)
+	std::vector<uint64_t> command_numbers;
+	std::vector<uint64_t> new_commands;
+	for (int i = 0; i < sorted_program.size(); i++)
+	{
+		uint64_t command_number = sorted_program[i].first;
+		command_numbers.push_back(command_number);
+
+		std::string str = sorted_program[i].second;
+		char state = str[0];
+
+		uint64_t new_command = 0;
+		uint64_t new_command2 = 0;
+		parseCommand(state, str, new_command, new_command2);
+
+		if (new_command != 0 && std::find(new_commands.begin(), new_commands.end(), new_command) == new_commands.end())
+		{
+			new_commands.push_back(new_command);
+		}
+
+		if (new_command2 != 0 && std::find(new_commands.begin(), new_commands.end(), new_command2) == new_commands.end())
+		{
+			new_commands.push_back(new_command2);
+		}
+	}
+
+	std::sort(command_numbers.begin(), command_numbers.end());
+	std::sort(new_commands.begin(), new_commands.end());
+
+	if (command_numbers != new_commands)
+	{
+		throw "Error";
+	}
+
 	char state = ' ';
 	uint64_t new_command = 0;
 	uint64_t new_command2 = 0;
@@ -140,7 +173,6 @@ std::string PostMachine::calc(std::string const& init, int maxsteps)
 
 		if (maxsteps == 0) {
 			throw "Not applicable";
-			break;
 		}
 
 		switch (state)
