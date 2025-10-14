@@ -30,10 +30,12 @@ int main(int argc, char* argv[]) {
 	input >> maxsteps;
 	std::getline(input, init);
 
+	std::string init_trim = init.substr(1, init.length());  // trim space at beginning
+
 	input.close();
 
-	std::string tape(tape_length-(init.length()), '0');
-	tape.insert(0, init);
+	std::string tape(tape_length-(init_trim.length()), '0');
+	tape.insert(0, init_trim);
 
 	// read file by lines
 	std::vector<std::string> program;
@@ -48,33 +50,42 @@ int main(int argc, char* argv[]) {
 
 	PostMachine postmachine(tape_length, program);
 
-	std::string res = postmachine.calc(tape, maxsteps);
+	try 
+	{
+		std::string res = postmachine.calc(tape, maxsteps);
 
-	//std::string ans;
+		std::string ans;
 
-	//uint64_t steps_left = postmachine.maxsteps_;
-	//uint64_t start_index = postmachine.index_;
-	//uint64_t last_index = start_index;  // will be changed
+		uint64_t steps_left = postmachine.maxsteps_;
+		uint64_t start_index = postmachine.index_;
+		uint64_t last_index = start_index;  // will be changed
 
-	//// Find the last '1' in the tape. Wrap around if necessary
-	//for (uint64_t i = 0; i < tape_length; ++i) {
-	//	if (tape[(start_index + i) % tape_length] == '1') {
-	//		last_index = (start_index + i) % tape_length;
-	//	}
-	//}
+		// Find the last '1' in the tape. Wrap around if necessary
+		for (uint64_t i = 0; i < tape_length; ++i) {
+			if (res[(start_index + i) % tape_length] == '1') {
+				last_index = (start_index + i) % tape_length;
+			}
+		}
 
-	//// Create a string: tape from start_index to last_index. Wrap around if necessary
-	//for (uint64_t i = 0; i < tape_length; ++i) {
-	//	uint64_t current_index = (start_index + i) % tape_length;
-	//	ans += tape[current_index];
-	//	if (current_index == last_index) {
-	//		break;
-	//	}
-	//}
+		// Create a string: tape from start_index to last_index. Wrap around if necessary
+		for (uint64_t i = 0; i < tape_length; ++i) {
+			uint64_t current_index = (start_index + i) % tape_length;
+			ans.push_back(res[current_index]);
+			if (current_index == last_index) {
+				break;
+			}
+		}
 
-	//std::ofstream output(argv[3]);
-	//output << ans;
-	//output.close();
+		std::ofstream output(argv[3]);
+		output << ans;
+		output.close();
+	} 
+	catch (const char* error)
+	{
+		std::ofstream output(argv[3]);
+		output << error;
+		output.close();
+	}
 
 	return 0;
 }

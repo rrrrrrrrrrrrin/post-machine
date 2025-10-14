@@ -55,11 +55,39 @@ void PostMachine::sortProgram(std::vector<std::pair<uint64_t, std::string>> &sor
 			sorted_program[i + 1] = temp;
 		}
 	}
+}
 
-	/*for (int i = 0; i < sorted_program.size(); i++)
+void parseCommand(char state, std::string str, uint64_t& new_command, uint64_t& new_command2)
+{
+	// take the number of next command
+	int space_pos = str.find(' ');
+
+	int end_pos = str.length();
+
+	int comment_pos = str.find('%');  // if not found: -1
+	if (comment_pos != -1) { end_pos = comment_pos - 2; }
+
+	std::string str_command;
+
+	if (state == '?')
 	{
-		std::cout << sorted_program[i].first << ' ' << sorted_program[i].second << '\n';
-	}*/
+		int space_pos2 = str.find(' ', space_pos + 1);  // find the second occurence of space
+
+		str_command = str.substr(space_pos + 1, space_pos2);
+
+		new_command = strToULL(str_command);
+
+		str_command = str.substr(space_pos2 + 1, end_pos);
+
+		new_command2 = strToULL(str_command);
+	}
+	else
+	{
+		str_command = str.substr(space_pos + 1, end_pos);
+
+		new_command = strToULL(str_command);
+	}
+
 }
 
 void keySearch(std::vector<std::pair<uint64_t, std::string>> sorted_program, char& new_state, uint64_t& new_command, uint64_t& new_command2)
@@ -74,36 +102,8 @@ void keySearch(std::vector<std::pair<uint64_t, std::string>> sorted_program, cha
 
 			if (new_state != '!')
 			{
-				// take the number of next command
-				int space_pos = str.find(' ');
-
-				int end_pos = str.length();
-
-				int comment_pos = str.find('%');  // if not found: -1
-				if (comment_pos != -1) { end_pos = comment_pos - 2; }
-
-				std::string str_command;
-
-				if (new_state == '?')
-				{
-					int space_pos2 = str.find(' ', space_pos + 1);  // find the second occurence of space
-
-					str_command = str.substr(space_pos + 1, space_pos2);
-
-					new_command = strToULL(str_command);
-
-					str_command = str.substr(space_pos2 + 1, end_pos);
-
-					new_command2 = strToULL(str_command);
-				}
-				else
-				{
-					str_command = str.substr(space_pos + 1, end_pos);
-
-					new_command = strToULL(str_command);
-				}
+				parseCommand(new_state, str, new_command, new_command2);
 			}
-
 			break;
 		}
 	}
@@ -117,8 +117,8 @@ std::string PostMachine::calc(std::string const& init, int maxsteps)
 	sortProgram(sorted_program);
 
 	char state = ' ';
-	uint64_t new_command;
-	uint64_t new_command2;
+	uint64_t new_command = 0;
+	uint64_t new_command2 = 0;
 
 	// set start state
 	std::string str = sorted_program[0].second;
@@ -127,116 +127,82 @@ std::string PostMachine::calc(std::string const& init, int maxsteps)
 
 	if (state == '!') { return res; }
 
-	// take the number of next command
-	int space_pos = str.find(' ');
-		
-	int end_pos = str.length();
-
-	int comment_pos = str.find('%');  // if not found: -1
-	if (comment_pos != -1) { end_pos = comment_pos - 2; }
-
-	std::string str_command;
-
-	if (state == '?') 
-	{ 
-		int space_pos2 = str.find(' ', space_pos + 1);  // find the second occurence of space
-
-		str_command = str.substr(space_pos + 1, space_pos2);
-			
-		new_command = strToULL(str_command);
-
-		str_command = str.substr(space_pos2 + 1, end_pos);
-
-		new_command2 = strToULL(str_command);
-	}
-	else
-	{
-		str_command = str.substr(space_pos + 1, end_pos);
-
-		new_command = strToULL(str_command);
-	}
+	parseCommand(state, str, new_command, new_command2);
 
 	char new_state = ' ';
 
 	uint64_t index = 0;
 
-	bool forBreak = false;
 	bool loopBreak = false;
 	while (maxsteps > 0)
 	{
-		// read the tape
-		for (int i = 0; i < res.length(); i++)
-		{
-			switch (state)
-			{
-			case 'V':
-				// change symbol on the tape
-				res[i] = 1;
-				keySearch(sorted_program, new_state, new_command, new_command2);
-				break;
+		--maxsteps;
 
-			case 'X':
-				res[i] = 0;
-				keySearch(sorted_program, new_state, new_command, new_command2);
-				break;
-
-			case 'L':
-				// move on the the circular tape
-				if (i <= 0)
-				{
-					index = res.length();
-				}
-				else
-				{
-					--index;
-				}
-				keySearch(sorted_program, new_state, new_command, new_command2);
-				break;
-
-			case 'R':
-				if (i > res.length())
-				{
-					index = 0;
-				}
-				else
-				{
-					++index;
-				}
-				keySearch(sorted_program, new_state, new_command, new_command2);
-				break;
-
-			case 'Q':
-				if (res[i] == '0')
-				{
-					keySearch(sorted_program, new_state, new_command, new_command2);
-				}
-				else
-				{
-					keySearch(sorted_program, new_state, new_command, new_command2);
-				}
-				break;
-
-			// includes case '!': stop status
-			default:
-				forBreak = true;
-			}
-
-			if (forBreak) { loopBreak = true; break; }
-
-			// change state
-			state = new_state;
-
-			--maxsteps;
-
-			if (maxsteps == 0) {
-				res = "Not applicable";
-				loopBreak = true;
-				break;
-			}
+		if (maxsteps == 0) {
+			throw "Not applicable";
+			break;
 		}
-		if (loopBreak) { break; }
+
+		switch (state)
+		{
+		case 'V':
+			// change symbol on the tape
+			res[index] = '1';
+			keySearch(sorted_program, new_state, new_command, new_command2);
+			break;
+
+		case 'X':
+			res[index] = '0';
+			keySearch(sorted_program, new_state, new_command, new_command2);
+			break;
+
+		case 'L':
+			// move on the the circular tape
+			if (index == 0)
+			{
+				index = res.length() - 1;
+			}
+			else
+			{
+				--index;
+			}
+			keySearch(sorted_program, new_state, new_command, new_command2);
+			break;
+
+		case 'R':
+			if (index > res.length() - 1)
+			{
+				index = 0;
+			}
+			else
+			{
+				++index;
+			}
+			keySearch(sorted_program, new_state, new_command, new_command2);
+			break;
+
+		case '?':
+			if (res[index] == '0')
+			{
+				keySearch(sorted_program, new_state, new_command, new_command2);
+			}
+			else
+			{
+				keySearch(sorted_program, new_state, new_command2, new_command);
+			}
+			break;
+
+		default:
+			loopBreak = true;
+		}
+
+		if (loopBreak || new_state == '!') { break; }
+
+		// change state
+		state = new_state;
 	}
 
+	maxsteps_ = maxsteps;
 	index_ = index;
 
 	return res;
