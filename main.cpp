@@ -10,17 +10,28 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	char* input_name = argv[2];
 	char* progr_name = argv[1];
+	char* input_name = argv[2];
 
-	std::ifstream input(input_name);
 	std::ifstream progr(progr_name);
+	std::ifstream input(input_name);
 
-	if ((input.is_open() | progr.is_open()) == 0)
+	if (( progr.is_open() | input.is_open() ) == 0)
 	{
 		std::cout << "Couldn't open files";
 		return 2;
 	}
+
+	// read file by lines
+	std::vector<std::string> program;
+	std::string line;
+
+	while (std::getline(progr, line))
+	{
+		program.push_back(line);
+	}
+
+	progr.close();
 
 	uint64_t tape_length = 0;
 	uint64_t maxsteps = 0;
@@ -36,17 +47,6 @@ int main(int argc, char* argv[]) {
 
 	std::string tape(tape_length-(init_trim.length()), '0');
 	tape.insert(0, init_trim);
-
-	// read file by lines
-	std::vector<std::string> program;
-	std::string line;
-
-	while (std::getline(progr, line))
-	{
-		program.push_back(line);
-	}
-
-	progr.close();
 
 	PostMachine postmachine(tape_length, program);
 

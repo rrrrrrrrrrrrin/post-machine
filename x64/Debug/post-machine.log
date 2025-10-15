@@ -1,0 +1,7 @@
+﻿  postmachine.cpp
+C:\Users\1\Desktop\post-machine\postmachine.cpp(21,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\1\Desktop\post-machine\postmachine.cpp(62,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\1\Desktop\post-machine\postmachine.cpp(64,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\1\Desktop\post-machine\postmachine.cpp(66,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\1\Desktop\post-machine\postmachine.cpp(73,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  post-machine.vcxproj -> C:\Users\1\Desktop\post-machine\x64\Debug\post-machine.exe

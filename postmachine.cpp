@@ -108,20 +108,16 @@ void keySearch(std::vector<std::pair<uint64_t, std::string>> sorted_program, cha
 	}
 }
 
-std::string PostMachine::calc(std::string const& init, int maxsteps)
+bool errorCheck(std::vector<std::pair<uint64_t, std::string>> sorted_program)
 {
-	std::string res = init;
-
-	std::vector<std::pair<uint64_t, std::string>> sorted_program;
-	sortProgram(sorted_program);
-
-	// check for errors in program: all command numbers could be called (exist in program)
 	std::vector<uint64_t> command_numbers;
 	std::vector<uint64_t> new_commands;
 	for (int i = 0; i < sorted_program.size(); i++)
 	{
 		uint64_t command_number = sorted_program[i].first;
 		command_numbers.push_back(command_number);
+
+		if (i == 0) { new_commands.push_back(command_number); } 
 
 		std::string str = sorted_program[i].second;
 		char state = str[0];
@@ -141,10 +137,27 @@ std::string PostMachine::calc(std::string const& init, int maxsteps)
 		}
 	}
 
-	std::sort(command_numbers.begin(), command_numbers.end());
-	std::sort(new_commands.begin(), new_commands.end());
+	for (int i = 0; i < new_commands.size(); i++)
+	{
+		// there is no command number to refer to
+		if (std::find(command_numbers.begin(), command_numbers.end(), new_commands[i]) == command_numbers.end())
+		{
+			return false;
+		}
+	}
 
-	if (command_numbers != new_commands)
+	return true;
+}
+
+std::string PostMachine::calc(std::string const& init, int maxsteps)
+{
+	std::string res = init;
+
+	std::vector<std::pair<uint64_t, std::string>> sorted_program;
+	sortProgram(sorted_program);
+
+	// check for errors in program: all command numbers could be called (exist in program)
+	if (!errorCheck(sorted_program))
 	{
 		throw "Error";
 	}
@@ -202,7 +215,7 @@ std::string PostMachine::calc(std::string const& init, int maxsteps)
 			break;
 
 		case 'R':
-			if (index > res.length() - 1)
+			if (index == res.length() - 1)
 			{
 				index = 0;
 			}
