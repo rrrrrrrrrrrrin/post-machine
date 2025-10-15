@@ -85,6 +85,8 @@ void parseCommand(char state, std::string str, uint64_t& new_command, uint64_t& 
 		str_command = str.substr(space_pos + 1, end_pos);
 
 		new_command = strToULL(str_command);
+
+		new_command2 = new_command;
 	}
 
 }
