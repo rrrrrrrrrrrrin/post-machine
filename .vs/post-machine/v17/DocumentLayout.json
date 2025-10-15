@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\0berd\\Desktop\\post-machine\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BEB7FD15-1B78-455F-BE2B-B545775CE5E0}|post-machine.vcxproj|C:\\Users\\0berd\\Desktop\\post-machine\\postmachine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{BEB7FD15-1B78-455F-BE2B-B545775CE5E0}|post-machine.vcxproj|solutionrelative:postmachine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BEB7FD15-1B78-455F-BE2B-B545775CE5E0}|post-machine.vcxproj|C:\\Users\\0berd\\Desktop\\post-machine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{BEB7FD15-1B78-455F-BE2B-B545775CE5E0}|post-machine.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEB7FD15-1B78-455F-BE2B-B545775CE5E0}|post-machine.vcxproj|C:\\Users\\0berd\\Desktop\\post-machine\\postmachine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BEB7FD15-1B78-455F-BE2B-B545775CE5E0}|post-machine.vcxproj|solutionrelative:postmachine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BEB7FD15-1B78-455F-BE2B-B545775CE5E0}|post-machine.vcxproj|C:\\Users\\0berd\\Desktop\\post-machine\\postmachine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,30 +54,31 @@
               "RelativeToolTip": "postmachine.h",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-14T16:58:24.426Z"
+              "WhenOpened": "2025-10-14T16:58:24.426Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "postmachine.cpp",
               "DocumentMoniker": "C:\\Users\\0berd\\Desktop\\post-machine\\postmachine.cpp",
               "RelativeDocumentMoniker": "postmachine.cpp",
               "ToolTip": "C:\\Users\\0berd\\Desktop\\post-machine\\postmachine.cpp",
               "RelativeToolTip": "postmachine.cpp",
-              "ViewState": "AgIAALIAAAAAAAAAAAAkwLcAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAYwLMAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-14T16:58:23.723Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\0berd\\Desktop\\post-machine\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Users\\0berd\\Desktop\\post-machine\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAADEAAAAAAAAAAAAkwDwAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAswCkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-14T16:58:22.895Z",
               "EditorCaption": ""

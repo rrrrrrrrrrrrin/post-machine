@@ -54,7 +54,8 @@
               "RelativeToolTip": "postmachine.h",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-14T16:58:24.426Z"
+              "WhenOpened": "2025-10-14T16:58:24.426Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -64,9 +65,10 @@
               "RelativeDocumentMoniker": "postmachine.cpp",
               "ToolTip": "C:\\Users\\0berd\\Desktop\\post-machine\\postmachine.cpp",
               "RelativeToolTip": "postmachine.cpp",
-              "ViewState": "AgIAALIAAAAAAAAAAAAkwLcAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAYwLMAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-14T16:58:23.723Z"
+              "WhenOpened": "2025-10-14T16:58:23.723Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -74,9 +76,9 @@
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\0berd\\Desktop\\post-machine\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
-              "ToolTip": "C:\\Users\\0berd\\Desktop\\post-machine\\main.cpp",
-              "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAkwE8AAAAQAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\0berd\\Desktop\\post-machine\\main.cpp*",
+              "RelativeToolTip": "main.cpp*",
+              "ViewState": "AgIAACIAAAAAAAAAAAAswCsAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-14T16:58:22.895Z",
               "EditorCaption": ""
