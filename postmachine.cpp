@@ -1,6 +1,6 @@
+#include "postmachine.h"
 #include <iostream>
 #include <algorithm>  // for std::sort for std::vector
-#include "postmachine.h"
 
 uint64_t strToULL(std::string str) {
 	uint64_t res = 0;
@@ -15,10 +15,10 @@ uint64_t strToULL(std::string str) {
 	return res;
 }
 
-void parseProgram(std::string str, std::string &str_trim, uint64_t &number)
+void parseProgram(std::string &str, std::string &str_trim, uint64_t &number)
 {
 	// take the number of command
-	int space_pos = str.find(' ');
+	int space_pos = static_cast<int>(str.find(' '));
 
 	std::string str_number = str.substr(0, space_pos - 1);  // remove dot before space
 
@@ -56,21 +56,21 @@ void PostMachine::sortProgram(std::vector<std::pair<uint64_t, std::string>> &sor
 	}
 }
 
-void parseCommand(char state, std::string str, uint64_t& new_command, uint64_t& new_command2)
+void parseCommand(char state, std::string& str, uint64_t& new_command, uint64_t& new_command2)
 {
 	// take the number of next command
-	int space_pos = str.find(' ');
+	int space_pos = static_cast<int>(str.find(' '));
 
-	int end_pos = str.length();
+	int end_pos = static_cast<int>(str.length());
 
-	int comment_pos = str.find('%');  // if not found: -1
+	int comment_pos = static_cast<int>(str.find('%'));  // if not found: -1 (as int)
 	if (comment_pos != -1) { end_pos = comment_pos - 2; }
 
 	std::string str_command;
 
 	if (state == '?')
 	{
-		int space_pos2 = str.find(' ', space_pos + 1);  // find the second occurence of space
+		int space_pos2 = static_cast<int>(str.find(' ', space_pos + 1));  // find the second occurence of space
 
 		str_command = str.substr(space_pos + 1, space_pos2);
 
@@ -91,11 +91,11 @@ void parseCommand(char state, std::string str, uint64_t& new_command, uint64_t& 
 
 }
 
-void keySearch(std::vector<std::pair<uint64_t, std::string>> sorted_program, char& new_state, uint64_t& new_command, uint64_t& new_command2)
+void keySearch(std::vector<std::pair<uint64_t, std::string>> sorted_program, char& new_state, uint64_t& new_command_first, uint64_t& new_command_second)
 {
 	for (int i = 0; i < sorted_program.size(); i++)
 	{
-		if (sorted_program[i].first == new_command)
+		if (sorted_program[i].first == new_command_first)
 		{
 			std::string str = sorted_program[i].second;
 
@@ -103,7 +103,7 @@ void keySearch(std::vector<std::pair<uint64_t, std::string>> sorted_program, cha
 
 			if (new_state != '!')
 			{
-				parseCommand(new_state, str, new_command, new_command2);
+				parseCommand(new_state, str, new_command_first, new_command_second);
 			}
 			break;
 		}
@@ -151,7 +151,7 @@ bool errorCheck(std::vector<std::pair<uint64_t, std::string>> sorted_program)
 	return true;
 }
 
-std::string PostMachine::calc(std::string const& init, int maxsteps)
+std::string PostMachine::calc(std::string const& init, uint64_t maxsteps)
 {
 	std::string res = init;
 

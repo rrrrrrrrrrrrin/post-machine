@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 	std::ifstream progr(progr_name);
 	std::ifstream input(input_name);
 
-	if (( progr.is_open() | input.is_open() ) == 0)
+	if (( static_cast<int>(progr.is_open()) | static_cast<int>(input.is_open()) ) == 0)
 	{
 		std::cout << "Couldn't open files";
 		return 2;
@@ -56,7 +56,6 @@ int main(int argc, char* argv[]) {
 
 		std::string ans;
 
-		uint64_t steps_left = postmachine.maxsteps_;
 		uint64_t start_index = postmachine.index_;
 		uint64_t last_index = start_index;  // will be changed
 

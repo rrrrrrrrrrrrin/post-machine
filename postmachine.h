@@ -1,4 +1,6 @@
-#pragma once
+#ifndef POSTMACHINE
+#define POSTMACHINE
+
 #include <cstdint>  // for uint64_t
 #include <string>
 #include <vector>
@@ -21,5 +23,7 @@ public:
 
 	void sortProgram(std::vector<std::pair<uint64_t, std::string>> &sorted_program);
 
-	std::string calc(std::string const& init, int maxsteps);
+	std::string calc(std::string const& init, uint64_t maxsteps);
 };
+
+#endif
